@@ -5,15 +5,15 @@
     android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context="com.haoye.preanaware.viewer.ViewerFragment">
-    <TextView
-        android:id="@+id/contentTxtV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="200dp"
-        android:background="#FF33B5E5"
-        android:gravity="start|top"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/default_text_size" />
+    <!--<TextView-->
+        <!--android:id="@+id/contentTxtV"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:minHeight="200dp"-->
+        <!--android:background="#FF33B5E5"-->
+        <!--android:gravity="start|top"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="@dimen/default_text_size" />-->
     <ListView
         android:id="@+id/fileListV"
         android:layout_width="match_parent"

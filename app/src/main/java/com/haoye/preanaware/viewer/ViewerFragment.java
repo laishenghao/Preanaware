@@ -32,7 +32,6 @@ public class ViewerFragment extends Fragment {
     private final int          enableColor  = Color.parseColor("#32B6E6");
     private String             currentPath  = DEFAULT_PATH;
     private View               rootView;
-    private TextView           contentTxtV;
     private ListView           fileListView;
     private FileListAdapter    fileListAdapter;
     private TextView           resetBtn;
@@ -44,7 +43,6 @@ public class ViewerFragment extends Fragment {
 
     private void findViews() {
         rootView     = getActivity().getLayoutInflater().inflate(R.layout.fragment_viewer, null);
-        contentTxtV  = (TextView) rootView.findViewById(R.id.contentTxtV);
         fileListView = (ListView) rootView.findViewById(R.id.fileListV);
         resetBtn     = (TextView) rootView.findViewById(R.id.fileListResetBtn);
         returnBtn    = (TextView) rootView.findViewById(R.id.fileListReturnBtn);
@@ -134,35 +132,36 @@ public class ViewerFragment extends Fragment {
         initFileListView();
         initControlButton();
         // test
-        displayFileInfo();
+//        displayFileInfo();
     }
 
     // test
-    private void displayFileInfo() {
-        String documentPath = FileUtil.getPublicDocumentPath();
-        try {
-            PreanFile preanFile = new PreanFile(
-                    documentPath + "/preanaware_dir_test/ID6001_2013年11月06日14时56分38秒.dat", "r");
-            contentTxtV.append(" File Type: " + preanFile.getType());
-            contentTxtV.append("\n Created Time: " + preanFile.getCreatedTimeString());
-            contentTxtV.append("\n Gauge ID: " + preanFile.getGaugeId());
-            contentTxtV.append("\n Interval: " + preanFile.getRecordInterval());
-            contentTxtV.append("\n Start Time: " + preanFile.getStartRecordTimeString());
-            contentTxtV.append("\n Channel Count: " + preanFile.getRecordChannelCount());
-            contentTxtV.append("\n Record Count: " + preanFile.getRecordCount());
-            contentTxtV.append("\n File Length: " + preanFile.length());
-            contentTxtV.append("\n Up Limit: " + preanFile.getUpLimitAlarmValue());
-            contentTxtV.append("\n Voltage: " + preanFile.getVoltage());
-            contentTxtV.append("\n Version: " + preanFile.getVersion());
-            contentTxtV.append("\n Record 0: " + preanFile.getChannelOneRecord(0));
-            contentTxtV.append("\n Record 50: " + preanFile.getChannelOneRecord(50));
-            contentTxtV.append("\n Record 100: " + preanFile.getChannelOneRecord(100));
-            contentTxtV.append("\n Record 1500: " + preanFile.getChannelOneRecord(1500) + "\n");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void displayFileInfo() {
+//        TextView contentTxtV  = (TextView) rootView.findViewById(R.id.contentTxtV);
+//        String documentPath = FileUtil.getPublicDocumentPath();
+//        try {
+//            PreanFile preanFile = new PreanFile(
+//                    documentPath + "/preanaware_dir_test/ID6001_2013年11月06日14时56分38秒.dat", "r");
+//            contentTxtV.append(" File Type: " + preanFile.getType());
+//            contentTxtV.append("\n Created Time: " + preanFile.getCreatedTimeString());
+//            contentTxtV.append("\n Gauge ID: " + preanFile.getGaugeId());
+//            contentTxtV.append("\n Interval: " + preanFile.getRecordInterval());
+//            contentTxtV.append("\n Start Time: " + preanFile.getStartRecordTimeString());
+//            contentTxtV.append("\n Channel Count: " + preanFile.getRecordChannelCount());
+//            contentTxtV.append("\n Record Count: " + preanFile.getRecordCount());
+//            contentTxtV.append("\n File Length: " + preanFile.length());
+//            contentTxtV.append("\n Up Limit: " + preanFile.getUpLimitAlarmValue());
+//            contentTxtV.append("\n Voltage: " + preanFile.getVoltage());
+//            contentTxtV.append("\n Version: " + preanFile.getVersion());
+//            contentTxtV.append("\n Record 0: " + preanFile.getChannelOneRecord(0));
+//            contentTxtV.append("\n Record 50: " + preanFile.getChannelOneRecord(50));
+//            contentTxtV.append("\n Record 100: " + preanFile.getChannelOneRecord(100));
+//            contentTxtV.append("\n Record 1500: " + preanFile.getChannelOneRecord(1500) + "\n");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

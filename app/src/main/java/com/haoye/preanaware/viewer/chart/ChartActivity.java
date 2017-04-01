@@ -21,6 +21,8 @@ import com.haoye.preanaware.viewer.model.ChartVerticalScrollView;
 import com.haoye.preanaware.viewer.model.PreanFile;
 import com.haoye.preanaware.viewer.model.Vernier;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
 
@@ -363,14 +365,10 @@ public class ChartActivity extends AppCompatActivity {
         int dt = index * intervalMs;
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(basicTimeMillis + dt);
-        String time = "时间：" + calendar.get(Calendar.YEAR)
-                    + "-" + calendar.get(Calendar.MONTH)
-                    + "-" + calendar.get(Calendar.DATE)
-                    + "  " + calendar.get(Calendar.HOUR)
-                    + ":" + calendar.get(Calendar.MINUTE)
-                    + ":" + calendar.get(Calendar.SECOND);
+        SimpleDateFormat format = new SimpleDateFormat("时间：yyyy-MM-dd HH:mm:ss");
+        String time = format.format(calendar.getTime());
         timeTxtV.setText(time);
-        String pressure = "压力：" + new Formatter().format("%.2f", pressureValue * 1.0 / denominator).toString() + " kPa";
+        String pressure = new Formatter().format("压力：%.2f", pressureValue * 1.0 / denominator).toString() + " kPa";
         pressureTxtV.setText(pressure);
     }
 
