@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="start|center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorBackground"
+    android:descendantFocusability="blocksDescendants">
+    <TextView
+        android:id="@+id/itemDeviceNameTxtV"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:textSize="@dimen/default_text_size"
+        android:maxLines="1" />
+    <TextView
+        android:id="@+id/itemDeviceAddressTxtV"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/colorContentForeground"
+        android:textSize="@dimen/min_text_size"
+        android:maxLines="1" />
+</LinearLayout>

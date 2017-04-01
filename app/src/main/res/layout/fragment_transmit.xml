@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.haoye.preanaware.transmit.TransmitFragment">
+
+    <ListView
+        android:id="@+id/msgListV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="20dp"
+        android:dividerHeight="20dp"
+        android:divider="@color/colorBackground"
+        android:longClickable="true"
+        android:listSelector="@android:color/transparent"
+        android:descendantFocusability="blocksDescendants"/>
+
+   <include
+       layout="@layout/bottombar"/>
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorNull">#00000000</color>
+    <color name="colorBackground">#c4d0db</color>
+    <color name="colorBackground2">#e9f3f9</color>
+    <color name="colorTheme">#FF000000</color>
+    <color name="colorTitlebarBackground">#FF000000</color>
+    <color name="colorContentBackground">#8899aa</color>
+    <color name="colorContentForeground">#5f6264</color>
+    <color name="colorForegroundTheme">#aabbcc</color>
+    <color name="colorFocusForeground">#32B6E6</color>
+    <color name="colorFocusableForeground">#32B6E6</color>
+    <color name="colorDivider">#aabbcc</color>
+    <color name="colorPressedBackground">#69B0AC</color>
+
+    <color name="colorDeviceListBackground">#cfd9eb</color>
+
+    <color name="black_overlay">#66000000</color>
+
+
+</resources>

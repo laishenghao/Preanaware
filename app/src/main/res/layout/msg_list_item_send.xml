@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="end|center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="5"
+    android:descendantFocusability="blocksDescendants">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/sendBoxDir"
+            android:layout_marginTop="10dp"
+            android:layout_width="15dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/send_message_box_dir"/>
+        <TextView
+            android:id="@+id/itemMsgSendTxtV"
+            android:background="@drawable/send_message_box"
+            android:layout_alignEnd="@id/sendBoxDir"
+            android:layout_marginEnd="13dp"
+            style="@style/MessageTextStyle" />
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_phone"
+        android:contentDescription="@string/app_name" />
+</LinearLayout>

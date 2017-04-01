@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Preanaware</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_transmit">通信</string>
+    <string name="menu_bluetooth">蓝牙</string>
+    <string name="menu_viewer">文件</string>
+    <string name="menu_more">...</string>
+    <string name="label_detectedDevices">可用设备：</string>
+    <string name="searching">搜索</string>
+    <string name="label_bluetooth">手机蓝牙：</string>
+    <string name="received_message_box_label">信息接收框：</string>
+    <string name="sent_message_box_label">信息发送框：</string>
+    <string name="send_btn_label">发送</string>
+    <string name="about">关于</string>
+    <string name="exit">退出</string>
+    <string name="help">帮助</string>
+    <string name="regulateTime">校对时间</string>
+    <string name="obtain_data">抄表</string>
+
+    <string name="title_activity_chart">ChartActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">PREANAWARE\nDATA</string>
+    <string name="exit_chart">返回</string>
+    <string name="resetChart">重置</string>
+    <string name="zoom_in_chart_x">放大X</string>
+    <string name="zoom_out_chart_x">缩小X</string>
+    <string name="zoom_in_chart_y">放大Y</string>
+    <string name="zoom_out_chart_y">缩小Y</string>
+    <string name="resetFileList">重置</string>
+    <string name="fileListReturn">返回</string>
+    <string name="index">序号：</string>
+    <string name="vernierValue">时间：\n压力：</string>
+    <string name="confirm">确定</string>
+    <string name="pressure">压力：</string>
+    <string name="time">时间：</string>
+
+</resources>
