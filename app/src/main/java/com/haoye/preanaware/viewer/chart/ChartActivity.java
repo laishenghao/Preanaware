@@ -295,6 +295,7 @@ public class ChartActivity extends AppCompatActivity {
         });
     }
 
+    private boolean toastFlag = true;
     private void checkInputIndex(String input) {
         final String tip =  "数值应在 0 到 " + lineChart.getDotCount() + " 之间!";
         if (input.isEmpty()) {
@@ -312,7 +313,11 @@ public class ChartActivity extends AppCompatActivity {
         }
         if (index < 0 || index >= lineChart.getDotCount()) {
             indexConfirmBtn.setVisibility(View.GONE);
-            Toast.makeText(ChartActivity.this, tip, Toast.LENGTH_LONG).show();
+            if (toastFlag) {
+                toastFlag = false;
+                Toast.makeText(ChartActivity.this, tip, Toast.LENGTH_LONG).show();
+            }
+            indexEditText.setText(String.valueOf(lineChart.getDotCount() - 1));
         }
         else if (oldIndex != index) {
             indexConfirmBtn.setVisibility(View.VISIBLE);
