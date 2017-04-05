@@ -116,9 +116,26 @@ public class LineChart extends View {
         this.yValues = yValues;
 //        this.yAxisStartNumber = computeyAxisStartNumber(yValues);
 //        this.yGridCount = computeyGridCount(yValues);
+        resetGridWidth(yValues.length);
         computeyGridValues(yValues);
         this.yDrawValues = realToDraw(yValues);
         resizeByYValues();
+    }
+
+    private void resetGridWidth(final int dataCount) {
+        int len;
+        do {
+            len = gridWidth * dataCount;
+            if (len > dm.widthPixels / 5) {
+                gridWidth *= 2;
+            }
+            else if (len > dm.widthPixels / 10){
+                gridWidth *= 5;
+            }
+            else {
+                gridWidth *= 10;
+            }
+        } while (len < dm.widthPixels);
     }
 
     private void resizeByYValues() {
@@ -153,10 +170,8 @@ public class LineChart extends View {
                 minValue = i;
             }
         }
-        yAxisStartNumber = minValue / 10 * 10 - 20;
-        if (minValue >= 0 && yAxisStartNumber < 0) {
-            yAxisStartNumber = 0;
-        }
+//        yAxisStartNumber = minValue / 10 * 10 - 20;
+
 
         // yValuePerGrid 、 end number(grid count)
         int maxValue = yValues[0];
@@ -165,10 +180,14 @@ public class LineChart extends View {
                 maxValue = i;
             }
         }
-        int range = maxValue - yAxisStartNumber;
+        int range = maxValue - minValue;
 
         int cnt = range / yValuePerGrid + 2;
-        cnt = Math.max(yGridCount, cnt);
+        while (cnt < 8 && yValuePerGrid > 1) {
+            yValuePerGrid >>= 1;
+            cnt = range / yValuePerGrid + 2;
+        }
+
         while (cnt > 16) {
             if (cnt >= 100) {
                 yValuePerGrid *= 10;
@@ -184,7 +203,13 @@ public class LineChart extends View {
             }
         }
 
-        yGridCount = cnt;
+        yGridCount = Math.max(cnt, 10);
+
+        yAxisStartNumber = minValue / yValuePerGrid * yValuePerGrid - yValuePerGrid;
+        if (minValue >= 0 && yAxisStartNumber < 0) {
+            yAxisStartNumber = 0;
+        }
+
     }
 
     @Override
