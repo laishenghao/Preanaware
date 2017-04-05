@@ -24,6 +24,7 @@ public class PreanFile extends RandomAccessFile {
     public static final String FILE_TYPE_USB10  = "USB1.0";
     public static final String FILE_TYPE_NRF10  = "nRF1.0";
     public static final String FILE_TYPE_USMS10 = "USMS1.0";
+    public static final String FILE_TYPE_BLE10  = "BLE1.0";
 
     public static final int OFFSET_TYPE = 0;
 
@@ -37,6 +38,7 @@ public class PreanFile extends RandomAccessFile {
             file = new PreanFile(path);
             if (FILE_TYPE_USB10.equals(file.getType())
              || FILE_TYPE_NRF10.equals(file.getType())
+             || FILE_TYPE_BLE10.equals(file.getType())
              || FILE_TYPE_USMS10.equals(file.getType())) {
                 return file;
             }
