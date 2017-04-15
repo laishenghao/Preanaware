@@ -16,7 +16,11 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.haoye.preanaware.utils.Constants;
+import com.haoye.preanaware.viewer.FileUtil;
+import com.haoye.preanaware.viewer.model.PreanFile;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.UUID;
 
 /**
@@ -34,6 +38,11 @@ public class Ble {
     private BluetoothGattCharacteristic gattCharacteristic;
 //    private boolean isConnected = false;
     private BluetoothDevice device = null;
+    private byte[] handshake = null;
+
+    public void setHandshake(byte[] handshake) {
+        this.handshake = handshake;
+    }
 
     public boolean isConnected() {
         return device != null;
@@ -62,6 +71,11 @@ public class Ble {
                         UUID.fromString(Constants.CLIENT_UUID));
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 gatt.writeDescriptor(descriptor);
+
+                // send commend
+                if (handshake != null) {
+                    write(handshake);
+                }
             }
         }
 

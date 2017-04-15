@@ -20,9 +20,12 @@ public class PreanFileManager {
         if (tempPrean == null) {
             return null;
         }
-        String desPath = FileUtil.getPreanFileHomePath()
-                       +  "/ID_" + tempPrean.getGaugeId()
-                       + "/" + tempPrean.getDefaultName();
+        String folder = FileUtil.getPreanFileHomePath() +  "/ID_" + tempPrean.getGaugeId();
+        if (!FileUtil.createDir(folder)) {
+            return null;
+        }
+
+        String desPath = folder + "/" + tempPrean.getDefaultName();
         try {
             tempPrean.close();
             File temp = new File(sourcePath);

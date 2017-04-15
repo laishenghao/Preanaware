@@ -80,6 +80,7 @@ public class PreanFile extends RandomAccessFile {
             calendar.set(year, month, date, hour, min, sec);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return calendar;
     }

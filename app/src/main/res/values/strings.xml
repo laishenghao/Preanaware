@@ -36,4 +36,6 @@
     <string name="pressure">压力：</string>
     <string name="time">时间：</string>
 
+    <string name="ble_need_location">Android6.0 蓝牙需要开启</string>
+
 </resources>

@@ -39,18 +39,20 @@ public class FileUtil {
         return path;
     }
 
-    public static String getDefaultSdCardPath() {
-        String path = "";
-        File file = new File(Environment.getExternalStorageDirectory(), "_test.txt");
-        if (file.exists()) {
-            path = file.getAbsolutePath();
+    public static String getSdCardPath() {
+        String path;
+        try {
+            path = Environment.getExternalStorageDirectory().getCanonicalPath();
+            return path;
         }
-        return path;
+        catch (IOException e) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
     }
 
     public static String getPreanFileHomePath() {
-        String docPath = getPublicDocumentPath();
-        String temp = docPath + "/" + "压力数据";
+        String docPath = getSdCardPath();
+        String temp = docPath + "/压力数据";
         if (createDir(temp)) {
             return temp;
         }
@@ -117,8 +119,20 @@ public class FileUtil {
     }
 
     public static boolean cutAndPaste(String srcPath, String desPath) {
+        if (srcPath.equals(desPath)) {
+            System.out.println("新文件名和旧文件名相同...");
+            return false;
+        }
 
-        return true;
+        File srcFile =new File(srcPath);
+        File desFile=new File(desPath);
+        if(!srcFile.exists()){
+            return false;
+        }
+        if (desFile.exists()){
+            desFile.delete();
+        }
+        return srcFile.renameTo(desFile);
     }
 
     public static String bytesToString(byte[] data) {

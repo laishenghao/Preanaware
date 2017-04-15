@@ -1,14 +1,19 @@
 package com.haoye.preanaware.bluetooth;
 
 
+import android.Manifest;
 import android.bluetooth.*;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +25,11 @@ import android.widget.Toast;
 
 import com.haoye.preanaware.R;
 import com.haoye.preanaware.utils.Constants;
+import com.haoye.preanaware.viewer.FileUtil;
+import com.haoye.preanaware.viewer.model.PreanFile;
+
+import java.io.File;
+import java.util.Calendar;
 
 /**
  * @brief bluetooth fragment
@@ -105,12 +115,74 @@ public class BluetoothFragment extends Fragment {
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ble.connect(deviceListAdapter.getDevice(position));
+                BluetoothDevice device = deviceListAdapter.getDevice(position);
+                byte[] command = createTransmitCommend(device.getName());
+                ble.setHandshake(command);
+                ble.connect(device);
                 deviceListAdapter.setCurConnectedIndex(position);
                 ble.stopScan();
             }
         });
+    }
+
+    private static byte[] createTransmitCommend(String deviceName) {
+        Calendar calendar = Calendar.getInstance();
+
+        byte[] commend = new byte[20];
+        commend[0] = 'R';
+        commend[1] = 'D';
+
+        // start copy time
+        long startCopyTime = getLatestFileTime(deviceName);
+        if (startCopyTime != 0) {
+            calendar.setTimeInMillis(startCopyTime);
+            calendarToBytes(calendar, commend, 2);
+        }
+
+        // regulate time
+        long regulateTime = System.currentTimeMillis();
+        calendar.setTimeInMillis(regulateTime);
+        calendarToBytes(calendar, commend, 14);
+
+        return commend;
+    }
+
+    private static void calendarToBytes(Calendar calendar, byte[] bytes, int offset) {
+        bytes[offset + 0] = (byte)(calendar.get(Calendar.YEAR) - 2000);
+        bytes[offset + 1] = (byte)(calendar.get(Calendar.MONTH) + 1);
+        bytes[offset + 2] = (byte)(calendar.get(Calendar.DAY_OF_MONTH));
+        bytes[offset + 3] = (byte)(calendar.get(Calendar.HOUR_OF_DAY));
+        bytes[offset + 4] = (byte)(calendar.get(Calendar.MINUTE));
+        bytes[offset + 5] = (byte)(calendar.get(Calendar.SECOND));
+    }
+
+    private static long getLatestFileTime(String deviceName) {
+        long time = 0;
+        String path = FileUtil.getPreanFileHomePath() + "/ID_" + deviceName.substring(2, 6);
+        File folder = new File(path);
+        if (!folder.exists() || !folder.isDirectory()) {
+            return time;
+        }
+
+        File[] files = new File(path).listFiles();
+        if (files != null && files.length > 0) {
+            for (File file : files) {
+                PreanFile preanFile = PreanFile.create(file.getPath());
+                if (preanFile == null) {
+                    continue;
+                }
+                Calendar calendar = preanFile.getStartRecordTime();
+                if (calendar == null) {
+                    continue;
+                }
+                long nTime = calendar.getTimeInMillis()
+                        + 1000 * ((preanFile.getRecordCount() - 1) * preanFile.getRecordInterval() + 1);
+                if ( nTime> time) {
+                    time = nTime;
+                }
+            }
+        }
+        return time;
     }
 
     private void initScanBtn() {
@@ -118,6 +190,7 @@ public class BluetoothFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (ble.isEnabled()) {
+                    checkLocationPermission();
                     ble.scan();
                 }
                 else {
@@ -143,6 +216,18 @@ public class BluetoothFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void checkLocationPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+            if(checkCallPhonePermission != PackageManager.PERMISSION_GRANTED){
+                if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION))
+                    Toast.makeText(getContext(),R.string.ble_need_location, Toast.LENGTH_LONG).show();
+
+                ActivityCompat.requestPermissions(getActivity() ,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},1);
+            }
+        }
     }
 
     public void invokeBluetoothSwitchView() {

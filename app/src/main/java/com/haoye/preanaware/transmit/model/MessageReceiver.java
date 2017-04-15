@@ -108,12 +108,10 @@ public class MessageReceiver implements Ble.OnReceivedDataListener{
                 tempOutputStream.close();
                 tempOutputStream = null;
                 String desPath = PreanFileManager.restore(tempFile.getPath());
-
                 // callback
                 if (fileReceiveListener != null) {
-                    fileReceiveListener.onReceived(tempFile.getPath());
+                    fileReceiveListener.onReceived(desPath);
                 }
-
                 tempFile.delete();
                 tempFile = null;
             } catch (IOException e) {
