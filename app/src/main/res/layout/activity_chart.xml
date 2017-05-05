@@ -23,59 +23,49 @@
         android:id="@+id/verticalScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.haoye.preanaware.viewer.model.ChartHorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
+
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <com.haoye.preanaware.viewer.chart.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.haoye.preanaware.viewer.model.ChartHorizontalScrollView>
+            <com.haoye.preanaware.viewer.model.ChartHorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom">
+                <com.haoye.preanaware.viewer.chart.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.haoye.preanaware.viewer.model.ChartHorizontalScrollView>
+
+            <com.haoye.preanaware.viewer.chart.VerticalAxis
+                android:id="@+id/verticalAxis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"/>
+        </FrameLayout>
+
     </com.haoye.preanaware.viewer.model.ChartVerticalScrollView>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            style="@style/VernierBaseInfoStyle"
             android:id="@+id/vernierTimeTxtV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#08253e"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/time"
-            android:textSize="18sp"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:text="@string/time" />
         <TextView
+            style="@style/VernierBaseInfoStyle"
             android:id="@+id/vernierPressureTxtV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#08253e"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/pressure"
-            android:textSize="18sp"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:text="@string/pressure" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#08253e"
-                android:layout_marginStart="10dp"
-                android:gravity="center"
-                android:text="@string/index"
-                android:textSize="18sp"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
+                style="@style/VernierBaseInfoStyle"
+                android:text="@string/index"/>
             <EditText
                 android:id="@+id/indexEditText"
                 android:layout_width="wrap_content"

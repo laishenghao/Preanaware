@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import com.haoye.preanaware.R;
 import com.haoye.preanaware.bluetooth.BluetoothFragment;
 import com.haoye.preanaware.bluetooth.Ble;
-import com.haoye.preanaware.transmit.TransmitFragment;
 import com.haoye.preanaware.utils.Constants;
 import com.haoye.preanaware.viewer.ViewerFragment;
 
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
      * fragments
      */
     private BluetoothFragment bluetoothFragment = BluetoothFragment.create(bluetooth);
-    private TransmitFragment transmitFragment = TransmitFragment.create(bluetooth);
     private ViewerFragment viewerFragment = new ViewerFragment();
 
     @Override
@@ -87,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPager() {
         ArrayList<Fragment> fragments = new ArrayList<>(3);
         fragments.add(bluetoothFragment);
-        fragments.add(transmitFragment);
         fragments.add(viewerFragment);
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
         viewPager.setOffscreenPageLimit(3);

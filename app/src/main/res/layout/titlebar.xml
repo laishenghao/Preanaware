@@ -14,9 +14,6 @@
         android:text="@string/menu_bluetooth"
         style="@style/TitlebarTextStyle"/>
     <TextView
-        android:text="@string/menu_transmit"
-        style="@style/TitlebarTextStyle"/>
-    <TextView
         android:text="@string/menu_viewer"
         style="@style/TitlebarTextStyle"/>
     <TextView

@@ -1,68 +1,102 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.haoye.preanaware.bluetooth.BluetoothFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackground">
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/tbTopWrap"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:textColor="@color/colorContentForeground"
-            android:textSize="@dimen/default_text_size"
-            android:text="@string/label_bluetooth" />
-        <Switch
-            android:id="@+id/bluetoothToggleSw"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"/>
-    </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorDivider"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textColor="@color/colorContentForeground"
-        android:padding="10dp"
-        android:textSize="@dimen/default_text_size"
-        android:text="@string/label_detectedDevices" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorDivider"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorDeviceListBackground">
-        <ListView
-            android:id="@+id/deviceListV"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/colorDivider"
-            android:dividerHeight="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp" />
-    </FrameLayout>
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:textColor="@color/colorContentForeground"
+                android:textSize="@dimen/default_text_size"
+                android:text="@string/label_bluetooth" />
+            <Switch
+                android:id="@+id/bluetoothToggleSw"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textColor="@color/colorContentForeground"
+            android:padding="10dp"
+            android:textSize="@dimen/default_text_size"
+            android:text="@string/label_detectedDevices" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/scanImgV"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:src="@android:drawable/ic_search_category_default"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/bg_text_btn"
         android:contentDescription="@string/app_name"/>
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/tbTopWrap"
+        android:layout_above="@id/scanImgV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/deviceListV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorBackground2"
+            android:divider="@color/colorDivider"
+            android:dividerHeight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textColor="@color/colorContentForeground"
+            android:padding="10dp"
+            android:textSize="@dimen/default_text_size"
+            android:text="@string/message_list_label"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@color/colorBackground2">
+            <TextView
+                android:id="@+id/msgListTxtV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="@dimen/default_text_size"
+                android:text="@string/tip_msg_none"/>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

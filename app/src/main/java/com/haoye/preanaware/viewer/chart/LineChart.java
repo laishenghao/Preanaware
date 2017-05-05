@@ -112,6 +112,18 @@ public class LineChart extends View {
         this.yAxisPadding = dip2px(yAxisPadding);
     }
 
+    public int getyAxisStartNumber() {
+        return yAxisStartNumber;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
+    }
+
+    public int getyValuePerGrid() {
+        return yValuePerGrid;
+    }
+
     public void setyValues(int[] yValues) {
         this.yValues = yValues;
 //        this.yAxisStartNumber = computeyAxisStartNumber(yValues);
@@ -232,18 +244,17 @@ public class LineChart extends View {
         int endY = getHeight() - axisMargin;
 
 
-        // Y axis
         int gridW = gridWidth * 50;
         int textCoordY = getHeight() - axisMargin * 2 / 3;
         for (int x = axisMargin, coordX = 0; x < endX; x += gridW, coordX += 50) {
             canvas.drawLine(x, axisMargin, x, endY, paint);
             canvas.drawText("" + coordX, x, textCoordY, paint);
         }
-        // X axis
-        int textCoordX = axisMargin / 2;
-        for (int y = endY, coordY = yAxisStartNumber; y > axisMargin ; y -= gridHeight, coordY += yValuePerGrid) {
+
+        for (int y = endY, coordY = yAxisStartNumber, cnt = 0;
+             cnt <=  yGridCount;
+             y -= gridHeight, coordY += yValuePerGrid, cnt++) {
             canvas.drawLine(axisMargin, y, endX, y, paint);
-            canvas.drawText("" + coordY, textCoordX, y, paint);
         }
 
     }
@@ -280,6 +291,7 @@ public class LineChart extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         if (onChangedListener != null) {
             onChangedListener.onChanged(w, h);
+            Log.e("LineChart", "onSizeChanged -- Height: " + h);
         }
     }
 
@@ -335,6 +347,7 @@ public class LineChart extends View {
         axisMargin = dip2px(70);
         this.yDrawValues = realToDraw(yValues);
         resizeByYValues();
+        invalidate();
     }
 
     public interface OnChangedListener {

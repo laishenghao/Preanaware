@@ -21,10 +21,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.haoye.preanaware.R;
-import com.haoye.preanaware.utils.Constants;
 import com.haoye.preanaware.viewer.FileUtil;
 import com.haoye.preanaware.viewer.model.PreanFile;
 
@@ -45,6 +45,7 @@ public class BluetoothFragment extends Fragment {
     private ListView          deviceListView;
     private DeviceListAdapter deviceListAdapter;
     private Ble               ble;
+    private TextView          msgListTxtV;
 
     private BroadcastReceiver bluetoothStateReceiver = new BroadcastReceiver() {
         @Override
@@ -96,6 +97,7 @@ public class BluetoothFragment extends Fragment {
         bluetoothSwView = (Switch) rootView.findViewById(R.id.bluetoothToggleSw);
         deviceListView  = (ListView) rootView.findViewById(R.id.deviceListV);
         scanImgV        = (ImageView) rootView.findViewById(R.id.scanImgV);
+        msgListTxtV     = (TextView) rootView.findViewById(R.id.msgListTxtV);
     }
 
     private void initBroadcastReceiver() {
@@ -121,6 +123,30 @@ public class BluetoothFragment extends Fragment {
                 ble.connect(device);
                 deviceListAdapter.setCurConnectedIndex(position);
                 ble.stopScan();
+            }
+        });
+    }
+
+    private void initFileReceiver() {
+        FileReceiver receiver = new FileReceiver(ble);
+        receiver.setInfoDisplayer(new FileReceiver.ReceiverInfoDisplayer() {
+            @Override
+            public void onReceive(int length) {
+
+            }
+
+            @Override
+            public void onReceived(String info) {
+                addMessageThroughUiThread(info);
+            }
+        });
+    }
+
+    private void addMessageThroughUiThread(final String info) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                msgListTxtV.append("\n" + info);
             }
         });
     }
@@ -240,6 +266,7 @@ public class BluetoothFragment extends Fragment {
         findView();
         initDeviceList();
         initBluetoothSwitchView();
+        initFileReceiver();
         initScanBtn();
         initBroadcastReceiver();
     }

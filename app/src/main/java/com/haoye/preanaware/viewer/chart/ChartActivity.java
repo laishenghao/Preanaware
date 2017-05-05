@@ -21,7 +21,6 @@ import com.haoye.preanaware.viewer.model.ChartVerticalScrollView;
 import com.haoye.preanaware.viewer.model.PreanFile;
 import com.haoye.preanaware.viewer.model.Vernier;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
@@ -31,18 +30,6 @@ import java.util.Formatter;
  * status bar and navigation/system bar) with user interaction.
  */
 public class ChartActivity extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
-
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -84,19 +71,6 @@ public class ChartActivity extends AppCompatActivity {
             hide();
         }
     };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-//    private final View.OnClickListener mDelayHideTouchListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            if (AUTO_HIDE) {
-//                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-//            }
-//        }
-//    };
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -153,6 +127,7 @@ public class ChartActivity extends AppCompatActivity {
 
 //============================================================================================
     private LineChart lineChart;
+    private VerticalAxis verticalAxis;
     private View mControlsView;
     private ChartHorizontalScrollView horizontalScrollView;
     private ChartVerticalScrollView   verticalScrollView;
@@ -201,6 +176,7 @@ public class ChartActivity extends AppCompatActivity {
 
     private void findViews() {
         lineChart            = (LineChart) findViewById(R.id.lineChart);
+        verticalAxis         = (VerticalAxis) findViewById(R.id.verticalAxis);
         mControlsView        = findViewById(R.id.fullscreen_content_controls);
         horizontalScrollView = (ChartHorizontalScrollView) findViewById(R.id.horizontalScrollView);
         verticalScrollView   = (ChartVerticalScrollView) findViewById(R.id.verticalScrollView);
@@ -234,8 +210,10 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onChanged(int w, int h) {
                 updateChartDisplayInfo();
+                verticalAxis.resize(lineChart);
             }
         });
+        verticalAxis.resize(lineChart);
     }
 
     private void initControlBar() {

@@ -1,6 +1,5 @@
-package com.haoye.preanaware.transmit.model;
+package com.haoye.preanaware.bluetooth;
 
-import com.haoye.preanaware.bluetooth.Ble;
 import com.haoye.preanaware.utils.Converter;
 import com.haoye.preanaware.viewer.FileUtil;
 import com.haoye.preanaware.viewer.model.PreanFileManager;
@@ -20,12 +19,10 @@ import java.util.ArrayList;
  */
 
 public class MessageReceiver implements Ble.OnReceivedDataListener{
-    private int type = Message.TYPE_RECV_TEXT;
     private int receivedCount = -1;
     private int totalPackage = 0;
     private ArrayList<byte[]> buffer = new ArrayList<>();
-    private OnTextReceiveListener textReceiveListener = null;
-    private OnFileReceiveListener fileReceiveListener = null;
+    private OnHandleMessageListener onHandleMessageListener = null;
     private FileOutputStream tempOutputStream = null;
     private File tempFile = null;
 
@@ -33,12 +30,8 @@ public class MessageReceiver implements Ble.OnReceivedDataListener{
 
     }
 
-    public void setTextReceiveListener(OnTextReceiveListener textReceiveListener) {
-        this.textReceiveListener = textReceiveListener;
-    }
-
-    public void setFileReceiveListener(OnFileReceiveListener fileReceiveListener) {
-        this.fileReceiveListener = fileReceiveListener;
+    public void setOnHandleMessageListener(OnHandleMessageListener onHandleMessageListener) {
+        this.onHandleMessageListener = onHandleMessageListener;
     }
 
     public void handleMessage(byte[] data) {
@@ -47,45 +40,25 @@ public class MessageReceiver implements Ble.OnReceivedDataListener{
             handleFirstPackage(data);
         }
         else {
-            if (type == Message.TYPE_RECV_TEXT) {
-                handleTextPackage(data);
-            }
-            else {
-                handleFilePackage(data);
-            }
+            handleFilePackage(data);
         }
     }
 
     private void handleFirstPackage(byte[] data) {
-        this.type     = Converter.bytesToInt(new byte[]{data[0]});
         byte[] bytes  = {data[1], data[2], data[3], data[4]};
         totalPackage  = Converter.bytesToInt(bytes);
         buffer.clear();
 
-        if (this.type == Message.TYPE_RECV_FILE) {
-            oldPercent = 0;
-            tempFile = new File(FileUtil.getTempFileDefaultPath() + "/" + System.currentTimeMillis() + ".DAT");
-            try {
-                tempOutputStream = new FileOutputStream(tempFile, true);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            // callback
-            if (fileReceiveListener != null) {
-                fileReceiveListener.onStart("正在传输文件...", totalPackage * 20);
-            }
+        oldPercent = 0;
+        tempFile = new File(FileUtil.getTempFileDefaultPath() + "/" + System.currentTimeMillis() + ".DAT");
+        try {
+            tempOutputStream = new FileOutputStream(tempFile, true);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-    }
-
-    private void handleTextPackage(byte[] data) {
-        buffer.add(data);
-        if (receivedCount == totalPackage) {
-            if (textReceiveListener != null) {
-                String text = Converter.bytesToString(buffer);
-                textReceiveListener.onReceived(text);
-            }
-            buffer.clear();
-            receivedCount = -1;
+        // callback
+        if (onHandleMessageListener != null) {
+            onHandleMessageListener.onStart("正在传输文件...", totalPackage * 20);
         }
     }
 
@@ -93,8 +66,8 @@ public class MessageReceiver implements Ble.OnReceivedDataListener{
     private void handleFilePackage(byte[] data) {
         buffer.add(data);
         int newPercent = receivedCount * 100 / totalPackage;
-        if (newPercent - oldPercent >= 5 && fileReceiveListener != null) {
-            fileReceiveListener.onReceive(newPercent);
+        if (newPercent - oldPercent >= 5 && onHandleMessageListener != null) {
+            onHandleMessageListener.onReceive(newPercent);
             oldPercent = newPercent;
         }
 
@@ -109,14 +82,14 @@ public class MessageReceiver implements Ble.OnReceivedDataListener{
                 tempOutputStream = null;
                 String desPath = PreanFileManager.restore(tempFile.getPath());
                 // callback
-                if (fileReceiveListener != null) {
-                    fileReceiveListener.onReceived(desPath);
+                if (onHandleMessageListener != null) {
+                    onHandleMessageListener.onReceived(desPath);
                 }
                 tempFile.delete();
                 tempFile = null;
             } catch (IOException e) {
-                if (fileReceiveListener != null) {
-                    fileReceiveListener.onError("传输或存储失败!");
+                if (onHandleMessageListener != null) {
+                    onHandleMessageListener.onError("传输或存储失败!");
                 }
                 e.printStackTrace();
             }
@@ -131,11 +104,7 @@ public class MessageReceiver implements Ble.OnReceivedDataListener{
         handleMessage(data);
     }
 
-    public interface OnTextReceiveListener {
-        void onReceived(String msg);
-    }
-
-    public interface OnFileReceiveListener {
+    public interface OnHandleMessageListener {
         void onStart(String title, int len);
 
         void onReceive(int progress);

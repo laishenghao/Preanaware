@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Preanaware</string>
+    <string name="app_name">压力抄表</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_transmit">通信</string>
-    <string name="menu_bluetooth">蓝牙</string>
-    <string name="menu_viewer">文件</string>
-    <string name="menu_more">...</string>
+    <string name="menu_bluetooth">蓝牙抄表</string>
+    <string name="menu_viewer">数据浏览</string>
+    <string name="menu_more">…</string>
     <string name="label_detectedDevices">可用设备：</string>
     <string name="searching">搜索</string>
     <string name="label_bluetooth">手机蓝牙：</string>
@@ -37,5 +37,7 @@
     <string name="time">时间：</string>
 
     <string name="ble_need_location">Android6.0 蓝牙需要开启</string>
+    <string name="message_list_label">消息：</string>
+    <string name="tip_msg_none">暂无消息</string>
 
 </resources>

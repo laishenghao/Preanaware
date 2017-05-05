@@ -4,7 +4,6 @@
     android:gravity="start|center_vertical"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/colorBackground"
     android:descendantFocusability="blocksDescendants">
     <TextView
         android:id="@+id/itemDeviceNameTxtV"
