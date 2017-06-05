@@ -48,6 +48,35 @@
         <!--<item name="android:layout_marginStart">1dp</item>-->
     </style>
 
+    <style name="ViewModeSwitchTextStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorFocusableForeground</item>
+        <item name="android:textColorPrimaryDisableOnly">#e9f3f9</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_text_btn</item>
+        <!--<item name="android:layout_marginStart">1dp</item>-->
+    </style>
+
+    <style name="PreanDataListTextStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">14sp</item>
+        <!--<item name="android:textColor">#e9f3f9</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:background">#33e9f3f9</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:focusable">false</item>
+        <item name="android:layout_marginStart">1dp</item>
+        <item name="android:layout_marginEnd">1dp</item>
+    </style>
+
     <style name="FileListControlBarTextStyle">
         <!--<item name="android:layout_weight">1</item>-->
         <item name="android:layout_width">wrap_content</item>
@@ -73,8 +102,9 @@
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <!--<item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>-->
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>

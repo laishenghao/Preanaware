@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewer_chart_layer_wrap"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.haoye.preanaware.viewer.model.ChartVerticalScrollView
+        android:id="@+id/verticalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.haoye.preanaware.viewer.model.ChartHorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom">
+                <com.haoye.preanaware.viewer.chart.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.haoye.preanaware.viewer.model.ChartHorizontalScrollView>
+
+            <com.haoye.preanaware.viewer.chart.VerticalAxis
+                android:id="@+id/verticalAxis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"/>
+        </FrameLayout>
+
+    </com.haoye.preanaware.viewer.model.ChartVerticalScrollView>
+
+    <include layout="@layout/vernier_info_area"/>
+
+    <com.haoye.preanaware.viewer.model.Vernier
+        android:id="@+id/vernier"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/chart_control_bar"/>
+</FrameLayout>

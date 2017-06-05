@@ -68,7 +68,7 @@ public class Titlebar extends LinearLayout {
     }
 
     /**
-     * init the item menu view, must be executed after inflation
+     * create the item menu view, must be executed after inflation
      */
     private void initItemMenuView() {
         int cnt = getChildCount();

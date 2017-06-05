@@ -6,9 +6,6 @@
     tools:context="com.haoye.preanaware.viewer.chart.ChartActivity">
 <!--    android:background="#0099cc"
 -->
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,85 +16,19 @@
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <com.haoye.preanaware.viewer.model.ChartVerticalScrollView
-        android:id="@+id/verticalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include layout="@layout/viewer_chart_layer"/>
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <com.haoye.preanaware.viewer.model.ChartHorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom">
-                <com.haoye.preanaware.viewer.chart.LineChart
-                    android:id="@+id/lineChart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </com.haoye.preanaware.viewer.model.ChartHorizontalScrollView>
+    <include layout="@layout/viewer_list_layer"/>
 
-            <com.haoye.preanaware.viewer.chart.VerticalAxis
-                android:id="@+id/verticalAxis"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"/>
-        </FrameLayout>
-
-    </com.haoye.preanaware.viewer.model.ChartVerticalScrollView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            style="@style/VernierBaseInfoStyle"
-            android:id="@+id/vernierTimeTxtV"
-            android:text="@string/time" />
-        <TextView
-            style="@style/VernierBaseInfoStyle"
-            android:id="@+id/vernierPressureTxtV"
-            android:text="@string/pressure" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/VernierBaseInfoStyle"
-                android:text="@string/index"/>
-            <EditText
-                android:id="@+id/indexEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#08253e"
-                android:minWidth="100dp"
-                android:inputType="number"
-                android:textColorHint="#28455e"
-                android:labelFor="@id/indexEditText"/>
-            <TextView
-                android:id="@+id/indexConfirmBtn"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/colorFocusableForeground"
-                android:text="@string/confirm"/>
-        </LinearLayout>
-    </LinearLayout>
-    <com.haoye.preanaware.viewer.model.Vernier
-        android:id="@+id/vernier"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout
+        android:id="@+id/viewMode_switchWrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:fitsSystemWindows="true">
-        <include layout="@layout/chart_control_bar"/>
+        <include layout="@layout/view_mode_switch"/>
     </FrameLayout>
 
 </FrameLayout>

@@ -1,7 +1,6 @@
 package com.haoye.preanaware.viewer.model;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import com.haoye.preanaware.viewer.FileUtil;
 
@@ -10,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @brief
@@ -59,7 +57,7 @@ public class PreanFile extends RandomAccessFile {
     public String getDefaultName() {
         return "ID" + getGaugeId()
                 + "_" + getStartRecordTimeCnString()
-                + ".DAT";
+                + ".dat";
     }
 
 
@@ -242,8 +240,13 @@ public class PreanFile extends RandomAccessFile {
         return value;
     }
 
+    private int[] values = null;
     public int[] getChannelOneRecords() {
-        int[] values = new int[getRecordCount()];
+        if (values != null) {
+            return values;
+        }
+
+        values = new int[getRecordCount()];
         int channel = getRecordChannelCount();
         if (channel == 1) {
             try {
@@ -251,7 +254,6 @@ public class PreanFile extends RandomAccessFile {
                 for (int i = 0; i < values.length; i++) {
                     values[i] = readHexShort();
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

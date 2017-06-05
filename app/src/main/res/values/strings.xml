@@ -39,5 +39,10 @@
     <string name="ble_need_location">Android6.0 蓝牙需要开启</string>
     <string name="message_list_label">消息：</string>
     <string name="tip_msg_none">暂无消息</string>
+    <string name="viewMode_list">列表模式</string>
+    <string name="viewMode_chart">图形模式</string>
+    <string name="list_index">序号</string>
+    <string name="time_label">时间</string>
+    <string name="value_label">数值</string>
 
 </resources>
